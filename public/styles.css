@@ -1,0 +1,6 @@
+
+@media (max-width:991px) and (min-width:576px) {
+    .hide {
+        display: none !important;
+    }
+}

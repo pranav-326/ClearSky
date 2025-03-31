@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+    <title>ClearSky</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="<%= hours >= 18 ? 'bg-indigo-950 text-amber-50' : 'bg-white p-6 text-black' %> p-0">
+    <div class="container" bis_skin_checked="1">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <span class="fs-4 <%= hours >= 18 ? 'text-amber-50' : 'text-black' %>">ClearSky</span>
+          </a>
+    
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/" class="nav-link">Weather</a></li>
+            <li class="nav-item"><a href="/uv-data" class="nav-link">UV</a></li>
+          </ul>
+        </header>
+      </div>
+      <div class="flex items-start justify-center ">
+        <div class="<%= hours >= 18 ? 'bg-blue-800' : 'bg-cyan-400' %> rounded-2xl shadow-lg flex flex-col items-center  justify-center w-6/12">
+            <img src="<%= imageURL %>" alt="Weather Icon" class="w-40 h-40"><h1 class="<%= hours >= 18 ? 'text-white' : 'text-black' %>"><%= temp %>  °C</h1>
+            <p class="text-lg font-semibold <%= hours >= 18 ? 'text-white' : 'text-black' %>  mt-4"><%= content %></p>
+        </div>
+    </div>
+    <div class="container px-4 py-5" id="icon-grid" bis_skin_checked="1">    
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5" bis_skin_checked="1">
+          <div class="col d-flex align-items-start" bis_skin_checked="1">
+            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap"></use></svg>
+            <div bis_skin_checked="1">
+              <p>Feels like</p><h4 class="fw-bold mb-0"><%= data[0] %>°C</h4>
+            </div>
+          </div>
+          <div class="col d-flex align-items-start" bis_skin_checked="1">
+            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"></use></svg>
+            <div bis_skin_checked="1">
+              <p>Humidity</p>
+              <h4 class="fw-bold mb-0"><%= data[1] %>%</h4>
+            </div>
+          </div>
+          <div class="col d-flex align-items-start" bis_skin_checked="1">
+            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"></use></svg>
+            <div bis_skin_checked="1"> <p>Visibility</p>
+            <h4 class="fw-bold mb-0"><%= data[2] %>km</h4>
+             
+            </div>
+          </div>
+          <div class="col d-flex align-items-start" bis_skin_checked="1">
+            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"></use></svg>
+            <div bis_skin_checked="1">
+              
+              <p>Wind</p><h4 class="fw-bold mb-0"><%= windSpeed %>kph <svg class="transform" style="rotate: <%= windDirection %>deg;" width="50" height="50" viewBox="0 0 50 50">
+                <polygon points="25,5 35,25 25,20 15,25" fill="red" />
+            </svg>
+            </h4>
+            </div>
+          </div>
+          <div class="col d-flex align-items-start hide" bis_skin_checked="1">
+            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#speedometer2"></use></svg>
+            <div bis_skin_checked="1">
+              <h4 class="fw-bold mb-0"></h4>
+              <p></p>
+            </div>
+          </div>
+          <div class="col d-flex align-items-start" bis_skin_checked="1">
+            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"></use></svg>
+            <div bis_skin_checked="1">
+                <p>Date</p>
+              <h3 class="fw-bold mb-0"><%= date %><%= suffix %> <%= month %> <%= year %></h3>
+            </div>
+          </div>
+          <div class="col d-flex align-items-start" bis_skin_checked="1">
+            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#geo-fill"></use></svg>
+            <div bis_skin_checked="1">
+                <p>Day</p>
+              <h3 class="fw-bold mb-0"> <%= day %></h3>
+
+            </div>
+          </div>
+          <div class="col d-flex align-items-start hide" bis_skin_checked="1">
+            <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#tools"></use></svg>
+            <div bis_skin_checked="1">
+              <h4 class="fw-bold mb-0"></h4>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="/script.js"></script>
+  </div>
+</body>
+</html>

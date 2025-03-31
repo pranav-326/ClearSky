@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="/styles.css" rel="stylesheet">
+    <title>UV data</title>
+    <style>
+        .rounded {
+            border-radius: 1 rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" bis_skin_checked="1">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <span class="fs-4 text-black">ClearSky</span>
+          </a>
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/" class="nav-link">Weather</a></li>
+            <li class="nav-item"><a href="/uv-data" class="nav-link">UV</a></li>
+          </ul>
+        </header>
+      </div>
+      <div class="flex items-start justify-center h-72">
+        <div class="<% if (uvInd <= 3) { %> bg-green-400 
+            <% } else if (uvInd > 3 && uvInd < 6) { %> bg-amber-200 
+            <% } else if (uvInd >= 6 && uvInd < 8) { %> bg-orange-400 
+            <% } else { %> bg-red-500 
+            <% } %>
+            rounded-2xl shadow-lg flex flex-col items-center justify-center w-6/12 h-64">
+            <img src="https://cdn-icons-png.freepik.com/256/4937/4937572.png?semt=ais_hybrid" class="h-12 w-12" alt=""><h1 class="bold"><%= uvInd %></h1>
+        </div>
+    </div>
+    <div class="container px-1 py-5" id="icon-grid">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <div><p>UV max:</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis"><%= uvMax %></h3>
+                </div>
+            </div>
+    
+            <div class="col-12 col-md-6">
+                <p>Safe exposure time:</p>
+
+<% if (expTime!=null) { %>
+    <h3 class="font-semibold"><%= expTime %> minutes</h3>
+<% } %>
+    <form action="/uv-data/submit" method="post">
+        <input class="w-48 p-2 border rounded" type="number" placeholder="Fitzpatrick skin type" id="skinType" name="skinType" min="1" max="6" required />
+        <button class="<% if (uvInd <= 3) { %> bg-green-400 
+            <% } else if (uvInd > 3 && uvInd < 6) { %> bg-amber-200 
+            <% } else if (uvInd >= 6 && uvInd < 8) { %> bg-orange-400 
+            <% } else { %> bg-red-500 
+            <% } %> text-white p-2 rounded" type="submit">Submit</button> 
+    </form>
+
+    <br>
+    <p>Reference:</p>
+    <ol class="text-sm">
+        <li>1. Burns easily, never tans</li>
+        <li>2. Burns first, then tans slightly</li>
+        <li>3. Sometimes burns, tans gradually</li>
+        <li>4. Rarely burns, tans easily</li>
+        <li>5. Never burns, always tans dark</li>
+        <li>6. Never burns, deeply pigmented</li>
+    </ol>
+            </div>
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#home"></use>
+                </svg>
+                <div> 
+                    <p>UV max time:</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis"><%= uvMaxTime %></h3>
+                   
+                </div>
+            </div>
+    
+        </div>
+    </div>
+  <script src="/script.js"></script>
+</body>
+</html>
