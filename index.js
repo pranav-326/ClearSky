@@ -18,10 +18,12 @@ app.post("/save-location", (req, res) => {
     res.send({ message: "Location saved" });
 });
 var d = new Date(); 
+
 app.get("/", async (req,res)=>{
     if (lat==null&&lon==null) {
         await getLocation()
-    } 
+    }  
+    console.log(`(${lat},${lon})`)
     const result = await axios.get(`https://api.weatherapi.com/v1/current.json?q=${lat},${lon}&key=${WeatherKey}`);
     const iconUrl = result.data.current.condition.icon;
     const windDirection=Math.round(result.data.current.wind_degree/10)*10
@@ -93,8 +95,8 @@ app.post("/uv-data/submit", async (req, res) => {
         const exposureTime = result.data.result.safe_exposure_time[`st${skinType}`];
         const d = new Date(result.data.result.uv_max_time);
         const currentHour = new Date().getHours();
-        // console.log(result.data)
-        // console.log(exposureTime)
+        console.log(result.data)
+        console.log(exposureTime)
         res.render("index1.ejs", { 
             uvInd: Math.round(result.data.result.uv * 10) / 10,
             uvMax: Math.round(result.data.result.uv_max * 10) / 10,
